@@ -22,4 +22,8 @@ jobs:
         uses: gittools/actions/gitversion/setup@v4.0.1
         with:
           versionSpec: ${{ env.GITVERSION_VERSION }}
+
+      - name: Execute GitVersion
+        id: gitversion_step # step id used as reference for output values
+        uses: gittools/actions/gitversion/execute@v4.0.1
       
