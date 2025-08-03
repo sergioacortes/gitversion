@@ -1,0 +1,16 @@
+name: CleanArchitecture - PR
+
+env:
+  GITVERSION_VERSION: 6.0.3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      

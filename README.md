@@ -68,4 +68,4 @@ In this example we are going to modify the default configuration to examinate ho
 
 ### Update behaviour 
 
-You might probably have to modify your GitVersion.yml file depending of your requirements. For example on the configuration of this repository you will find that main main mode is configured and ManualDeployment which means that the version remain on the same pre-released version until it has been deployed dedicatedly, [Refer to the documentation for mure information](https://gitversion.net/docs/reference/modes/) and add label 'rev'.
+You might probably have to modify your GitVersion.yml file depending of your requirements. For example on the configuration of this repository you will find that main main mode is configured and ManualDeployment which means that the version remain on the same pre-released version until it has been deployed dedicatedly, [Refer to the documentation for mure information](https://gitversion.net/docs/reference/modes/).
