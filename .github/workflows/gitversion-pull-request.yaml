@@ -6,10 +6,20 @@ env:
 on:
   pull_request:
     types: [opened, synchronize, reopened]    
+    branches:
+      - main
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v4.0.1
+        with:
+          versionSpec: ${{ env.GITVERSION_VERSION }}
       
