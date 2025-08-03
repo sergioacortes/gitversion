@@ -1,7 +1,7 @@
 name: GitVersion - PR
 
 env:
-  GITVERSION_VERSION: 6.0.3
+  GITVERSION_VERSION: 6.3.0
 
 on:
   pull_request:
