@@ -40,5 +40,15 @@ jobs:
       - name: Use job variables (pwsh - outputs without prefix)
         shell: pwsh
         run: |
-          echo "SemVer            : $env:gitversion_majorminorpatch"
+          echo "SemVer            : $env:gitversion_semver"
           echo "MajorMinorPatch   : $env:gitversion_majorminorpatch"
+
+      - name: Use local env mapped from output (pwsh - outputs without prefix)
+        shell: pwsh
+        env:
+          gitversion_semver_local: ${{ needs.setup.outputs.gitversion_semver }}
+          gitversion_majorminorpatch_local: ${{ needs.setup.outputs.gitversion_majorminorpatch }}
+        run: |
+          echo "SemVer            : $env:gitversion_semver_local"
+          echo "MajorMinorPatch   : $env:gitversion_majorminorpatch_local"
+        
