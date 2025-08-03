@@ -12,6 +12,9 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    outputs:
+      gitversion_semver: ${{ steps.gitversion_step.outputs.SemVer }}
+      gitversion_majorminorpatch: ${{ steps.gitversion_step.outputs.MajorMinorPatch }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,3 +30,14 @@ jobs:
         id: gitversion_step # step id used as reference for output values
         uses: gittools/actions/gitversion/execute@v4.0.1
       
+  build:
+    runs-on: ubuntu-latest
+    needs: [ setup ]
+    env:
+      gitversion_semver: ${{ needs.setup.outputs.GitVersion_SemVer }}
+      gitversion_majorminorpatch: ${{ needs.setup.outputs.GitVersion_MajorMinorPatch }}
+    steps:
+      - name: Use job variables (pwsh - outputs without prefix)
+        shell: pwsh
+        run: |
+          echo "FullSemVer (env:gitversion_semver)   : $env:gitversion_majorminorpatch"
