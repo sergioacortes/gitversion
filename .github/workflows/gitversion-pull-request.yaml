@@ -52,3 +52,18 @@ jobs:
           echo "SemVer            : $env:gitversion_semver_local"
           echo "MajorMinorPatch   : $env:gitversion_majorminorpatch_local"
         
+      - name: Use local env mapped from output (pwsh - outputs without prefix)
+        shell: pwsh
+        env:
+          gitversion_semver_local: ${{ env.gitversion_semver }}
+          gitversion_majorminorpatch_local: ${{ env.gitversion_majorminorpatch }}
+        run: |
+          echo "SemVer            : $env:gitversion_semver_local"
+          echo "MajorMinorPatch   : $env:gitversion_majorminorpatch_local"
+
+      - name: Use direct output from previous job (pwsh - outputs without prefix)
+        shell: pwsh
+        run: |
+          echo "SemVer            : ${{ needs.setup.outputs.gitversion_semver }}"
+          echo "MajorMinorPatch   : ${{ needs.setup.outputs.gitversion_majorminorpatch }}"
+        
