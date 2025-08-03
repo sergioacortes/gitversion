@@ -64,6 +64,6 @@ jobs:
       - name: Use direct output from previous job (pwsh - outputs without prefix)
         shell: pwsh
         run: |
-          echo "SemVer            : ${{ needs.setup.outputs.gitversion_semver }}"
-          echo "MajorMinorPatch   : ${{ needs.setup.outputs.gitversion_majorminorpatch }}"
-        
+          echo "SemVer            : $gitversion_semver"
+          echo "MajorMinorPatch   : $gitversion_majorminorpatch"
+                
