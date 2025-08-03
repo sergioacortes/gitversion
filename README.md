@@ -45,3 +45,25 @@ dotnet gitversion
 ```
 
 ![image info](./images/01-gitversion-command-line.png)
+
+# GitVersion configuration
+
+GitVersion has a default configuration that can be shown by executing the followin command
+
+```
+dotnet gitversion /showConfig
+``` 
+
+This configuration is in YAML format and is the configuration that is going to be used when executing git version. However, this configuration can be override with a configuration file on the root of the repository.
+
+To read more about the [gitversion configuration](https://gitversion.net/docs/reference/configuration) please refer to the official gitversion configuration documentation
+
+## GitVersion configuration file
+
+As we mention, the gitversion configuration can be overrided by creating a configuration file named GitVersion.yml
+
+In this example we are going to modify the default configuration to examinate how gitversion behaves depending of the branch we are located and the gitversion configuration. The first step is to run the command to show the configuration and create the configuration file. Before commit run the gitversion command (save the output) and commit the GitVersion.yml and run the gitversion command agin to compare the two outputs.
+
+### Update behaviour 
+
+You might probably have to modify your GitVersion.yml file depending of your requirements. For example on the configuration of this repository you will find that main main mode is configured and ManualDeployment which means that the version remain on the same pre-released version until it has been deployed dedicatedly, [Refer to the documentation for mure information](https://gitversion.net/docs/reference/modes/) and add label 'rev'.
