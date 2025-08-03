@@ -1,4 +1,4 @@
-name: CleanArchitecture - PR
+name: GitVersion - PR
 
 env:
   GITVERSION_VERSION: 6.0.3
