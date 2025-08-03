@@ -62,7 +62,7 @@ jobs:
           echo "MajorMinorPatch   : $env:gitversion_majorminorpatch_local"
 
       - name: Use direct output from previous job (pwsh - outputs without prefix)
-        shell: pwsh
+        shell: bash
         run: |
           echo "SemVer            : $gitversion_semver"
           echo "MajorMinorPatch   : $gitversion_majorminorpatch"
