@@ -13,8 +13,16 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      gitversion_semver: ${{ steps.gitversion_step.outputs.SemVer }}
-      gitversion_majorminorpatch: ${{ steps.gitversion_step.outputs.MajorMinorPatch }}
+      # Output GitVersion variables without prefix
+      BranchName: ${{ steps.gitversion_step.outputs.branchName }}
+      SemVer: ${{ steps.gitversion_step.outputs.semVer }}
+      FullSemVer: ${{ steps.gitversion_step.outputs.fullSemVer }}
+      MajorMinorPatch: ${{ steps.gitversion_step.outputs.majorMinorPatch }}
+      # Output GitVersion variables with prefix
+      GitVersion_BranchName: ${{ steps.gitversion_step.outputs.GitVersion_BranchName }}
+      GitVersion_SemVer: ${{ steps.gitversion_step.outputs.GitVersion_SemVer }}
+      GitVersion_FullSemVer: ${{ steps.gitversion_step.outputs.GitVersion_FullSemVer }}
+      GitVersion_MajorMinorPatch: ${{ steps.gitversion_step.outputs.GitVersion_MajorMinorPatch }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,66 +43,80 @@ jobs:
     # 
     needs: [ setup ]
     env:
-      # Define job variables that map from setup job
-      gitversion_semver: ${{ needs.setup.outputs.gitversion_semver }}
-      gitversion_majorminorpatch: ${{ needs.setup.outputs.gitversion_majorminorpatch }}
+      # Define job variables that map from setup job wihtout GitVersion prefix
+      BranchName: ${{ needs.setup.outputs.BranchName }}
+      SemVer: ${{ needs.setup.outputs.SemVer }}
+      FullSemVer: ${{ needs.setup.outputs.FullSemVer }}
+      MajorMinorPatch: ${{ needs.setup.outputs.MajorMinorPatch }}
+      # Define job variables that map from setup job wiht GitVersion prefix
+      GitVersion_BranchName: ${{ needs.setup.outputs.GitVersion_BranchName }}
+      GitVersion_SemVer: ${{ needs.setup.outputs.GitVersion_SemVer }}
+      GitVersion_FullSemVer: ${{ needs.setup.outputs.GitVersion_FullSemVer }}
+      GitVersion_MajorMinorPatch: ${{ needs.setup.outputs.GitVersion_MajorMinorPatch }}
     steps:
       - name: Use own job variables that maps from setup job (pwsh)
         shell: pwsh
         run: |
-          echo "SemVer            : $env:gitversion_semver"
-          echo "MajorMinorPatch   : $env:gitversion_majorminorpatch"
+          echo "BranchName                    : $env:BranchName"
+          echo "SemVer                        : $env:SemVer"
+          echo "FullSemVer                    : $env:FullSemVer"
+          echo "MajorMinorPatch               : $env:MajorMinorPatch"
+          echo ""
+          echo "GitVersion BranchName         : $env:GitVersion_BranchName"
+          echo "GitVersion SemVer             : $env:GitVersion_SemVer"
+          echo "GitVersion FullSemVer         : $env:GitVersion_FullSemVer"
+          echo "GitVersion MajorMinorPatch    : $env:GitVersion_MajorMinorPatch"
 
       - name: Use own step variables that maps from own job variables (pwsh)
         shell: pwsh
         env:
-          gitversion_semver_local: ${{ env.gitversion_semver }}
-          gitversion_majorminorpatch_local: ${{ env.gitversion_majorminorpatch }}
+          GitVersion_SemVer_local: ${{ env.GitVersion_SemVer }}
+          GitVersion_MajorMinorPatch_local: ${{ env.GitVersion_MajorMinorPatch }}
         run: |
-          echo "SemVer            : $env:gitversion_semver_local"
-          echo "MajorMinorPatch   : $env:gitversion_majorminorpatch_local"
+          echo "SemVer            : $env:GitVersion_SemVer_local"
+          echo "MajorMinorPatch   : $env:GitVersion_MajorMinorPatch_local"
 
       - name: Use own step variables that maps from setup job output variables (pwsh)
         shell: pwsh
         env:
-          gitversion_semver_local: ${{ needs.setup.outputs.gitversion_semver }}
-          gitversion_majorminorpatch_local: ${{ needs.setup.outputs.gitversion_majorminorpatch }}
+          GitVersion_SemVer_local: ${{ needs.setup.outputs.GitVersion_SemVer }}
+          GitVersion_MajorMinorPatch_local: ${{ needs.setup.outputs.GitVersion_MajorMinorPatch }}
         run: |
-          echo "SemVer            : $env:gitversion_semver_local"
-          echo "MajorMinorPatch   : $env:gitversion_majorminorpatch_local"
+          echo "SemVer            : $env:GitVersion_SemVer_local"
+          echo "MajorMinorPatch   : $env:GitVersion_MajorMinorPatch_local"
 
       - name: Use setup job output variables directly (pwsh)
         shell: pwsh
         run: |
-          echo "SemVer            : ${{ needs.setup.outputs.gitversion_semver }}"
-          echo "MajorMinorPatch   : ${{ needs.setup.outputs.gitversion_majorminorpatch }}"       
+          echo "SemVer            : ${{ needs.setup.outputs.GitVersion_SemVer }}"
+          echo "MajorMinorPatch   : ${{ needs.setup.outputs.GitVersion_MajorMinorPatch }}"       
 
       - name: Use own job variables that maps from setup job  (bash)
         shell: bash
         run: |
-          echo "SemVer            : $gitversion_semver"
-          echo "MajorMinorPatch   : $gitversion_majorminorpatch"
+          echo "SemVer            : $GitVersion_SemVer"
+          echo "MajorMinorPatch   : $GitVersion_MajorMinorPatch"
 
       - name: Use own step variables that maps from own job variables (bash)
         shell: bash
         env:
-          gitversion_semver_local: ${{ env.gitversion_semver }}
-          gitversion_majorminorpatch_local: ${{ env.gitversion_majorminorpatch }}
+          GitVersion_SemVer_local: ${{ env.GitVersion_SemVer }}
+          GitVersion_MajorMinorPatch_local: ${{ env.GitVersion_MajorMinorPatch }}
         run: |
-          echo "SemVer            : $gitversion_semver_local"
-          echo "MajorMinorPatch   : $gitversion_majorminorpatch_local"          
+          echo "SemVer            : $GitVersion_SemVer_local"
+          echo "MajorMinorPatch   : $GitVersion_MajorMinorPatch_local"          
 
       - name: Use own step variables that maps from setup job output variables (bash)
         shell: bash
         env:
-          gitversion_semver_local: ${{ needs.setup.outputs.gitversion_semver }}
-          gitversion_majorminorpatch_local: ${{ needs.setup.outputs.gitversion_majorminorpatch }}
+          GitVersion_SemVer_local: ${{ needs.setup.outputs.GitVersion_SemVer }}
+          GitVersion_MajorMinorPatch_local: ${{ needs.setup.outputs.GitVersion_MajorMinorPatch }}
         run: |
-          echo "SemVer            : $gitversion_semver_local"
-          echo "MajorMinorPatch   : $gitversion_majorminorpatch_local"
+          echo "SemVer            : $GitVersion_SemVer_local"
+          echo "MajorMinorPatch   : $GitVersion_MajorMinorPatch_local"
         
       - name: Use setup job output variables directly (bash)
         shell: bash
         run: |
-          echo "SemVer            : ${{ needs.setup.outputs.gitversion_semver }}"
-          echo "MajorMinorPatch   : ${{ needs.setup.outputs.gitversion_majorminorpatch }}"    
+          echo "SemVer            : ${{ needs.setup.outputs.GitVersion_SemVer }}"
+          echo "MajorMinorPatch   : ${{ needs.setup.outputs.GitVersion_MajorMinorPatch }}"    
