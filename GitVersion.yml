@@ -83,7 +83,6 @@ branches:
     prevent-increment:
       of-merged-branch: true
       when-current-commit-tagged: false
-    label-number-pattern: '[/-](?<number>\d+)'
     track-merge-target: false
     track-merge-message: true
     regex: ^pull?

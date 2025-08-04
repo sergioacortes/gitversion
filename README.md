@@ -22,14 +22,12 @@ In this example we are goint to focus on Continous Integration pipeline and comm
 
 # GitVersion local installation
 
-IMPORTANT: Be aware of GitVersion documentation becase is not to be aligned with the last version available on nuget package repository. This example will use the version 6.0.5. If you try to use the latest version, the gitversion configuration file in this repository might not work. 
-
 The first thing we are going to do is to install GitVersion using dotnet cli. If you do not have dotnet cli installed you can install it from the [Official Microsoft dotnet site](https://dotnet.microsoft.com/en-us/download)
 
 To install git version run the following command
 
 ```
-dotnet tool install --global GitVersion.Tool --version 6.0.5
+dotnet tool install --global GitVersion.Tool --version 6.3.0
 ```
 
 Alternatively, if you are using Mac, you can install it using homebrew
@@ -68,4 +66,4 @@ In this example we are going to modify the default configuration to examinate ho
 
 ### Update behaviour 
 
-You might probably have to modify your GitVersion.yml file depending of your requirements. For example on the configuration of this repository you will find that main main mode is configured and ManualDeployment which means that the version remain on the same pre-released version until it has been deployed dedicatedly, [Refer to the documentation for mure information](https://gitversion.net/docs/reference/modes/) and add label 'rev'.
+You might probably have to modify your GitVersion.yml file depending of your requirements. For example on the configuration of this repository you will find that main main mode is configured and ManualDeployment which means that the version remain on the same pre-released version until it has been deployed dedicatedly, [Refer to the documentation for mure information](https://gitversion.net/docs/reference/modes/).
